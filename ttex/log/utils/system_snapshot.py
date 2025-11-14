@@ -68,7 +68,13 @@ def get_gpu_info():
     elif shutil.which("rocm-smi"):
         return {"gpu": run_cmd("rocm-smi", parse="lines")}
     elif shutil.which("lspci"):
-        return {"gpu": run_cmd("lspci", parse="lines", filter=lambda line: any(s in line.lower() for s in ("vga", "3d", "2d")))}
+        return {
+            "gpu": run_cmd(
+                "lspci",
+                parse="lines",
+                filter=lambda line: any(s in line.lower() for s in ("vga", "3d", "2d")),
+            )
+        }
     else:
         return {"gpu": "No GPU information available"}
 
