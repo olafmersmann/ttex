@@ -63,10 +63,10 @@ def get_memory_info():
 
 
 def get_gpu_info():
-    if shutil.which("lspci"):
-        return {"gpu": run_cmd("lspci", parse="lines", filter=lambda line: any(s in line.lower() for s in ("vga", "3d", "2d")))}
-    elif shutil.which("nvidia-smi"):
+    if shutil.which("nvidia-smi"):
         return {"gpu": run_cmd("nvidia-smi", parse="lines")}
+    elif shutil.which("lspci"):
+        return {"gpu": run_cmd("lspci", parse="lines", filter=lambda line: any(s in line.lower() for s in ("vga", "3d", "2d")))}
     else:
         return {"gpu": "No GPU information available"}
 
